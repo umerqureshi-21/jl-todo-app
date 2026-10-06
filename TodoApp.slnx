@@ -1,0 +1,8 @@
+<Solution>
+  <Project Path="todoapp.client/todoapp.client.esproj">
+    <Build />
+    <Deploy />
+  </Project>
+  <Project Path="TodoApp.Server.UnitTests/TodoApp.Server.UnitTests.csproj" Id="ba305b2b-dda6-49c8-bc66-85b18b94d5d0" />
+  <Project Path="TodoApp.Server/TodoApp.Server.csproj" />
+</Solution>

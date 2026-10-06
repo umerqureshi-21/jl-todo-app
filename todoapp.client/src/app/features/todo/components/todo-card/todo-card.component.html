@@ -1,0 +1,13 @@
+<div class="border rounded p-3">
+    <div>
+        <h4>{{todo().title}}</h4>
+        <h6 class="text-muted">{{todo().dueDate | date:'dd MMMM yyyy hh:mm a'}}</h6>
+        <p>{{todo().description}}</p>
+    </div>
+    <div>
+        <a class="btn btn-sm btn-primary me-2" [routerLink]="['/edit-todo', todo().id]">Edit</a>
+        @if (todo().id; as id) {
+            <button class="btn btn-sm btn-danger" (click)="deleteTodo(id)">Delete</button>
+        }
+    </div>
+</div>

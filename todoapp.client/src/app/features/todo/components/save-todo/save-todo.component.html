@@ -1,0 +1,33 @@
+<div class="container mt-4">
+    <div class="border rounded p-3 mx-auto" style="max-width: 700px;">
+@if (editTodoId()) {
+  <h1>Edit Todo</h1>
+} @else {
+  <h1>Add Todo</h1>
+}
+<form [formGroup]="todoForm" (ngSubmit)="onSubmit()">
+    <div class="mb-3">
+    <label for="title" class="form-label"> <span class="text-danger">*</span>Title:</label>
+    <input type="text" id="title" name="title" class="form-control" maxlength="100" formControlName="title">
+    @if (title.errors?.["required"] && title.touched) {
+        <span class="text-danger">Title is required</span>
+    } 
+    </div>
+    <div class="mb-3">
+    <label for="description" class="form-label">Description:</label>
+        <textarea id="description" name="description" class="form-control" maxlength="500" formControlName="description"></textarea>
+    </div>
+    <div class="mb-3">
+    <label for="dueDate" class="form-label"> <span class="text-danger">*</span>Due Date:</label>
+    <input type="date" id="dueDate" name="dueDate" class="form-control" [value]="todoForm.controls.dueDate?.value | date:'yyyy-MM-dd'" formControlName="dueDate">
+        @if (dueDate.errors?.["required"] && dueDate.touched) {
+        <span class="text-danger">Due Date is required</span>
+    }
+    </div>
+    <div class="mb-3">
+    <button class="btn btn-primary" type="submit" [disabled]="!todoForm.valid">Save</button>
+    <a class="btn btn-secondary ms-2" routerLink="/todos">Cancel</a>
+    </div>
+</form>
+    </div>
+</div>
