@@ -3,9 +3,18 @@ name: backend-reviewer
 description: Basic read-only reviewer for server-side C#/.NET 10 code in TodoApp.Server and TodoApp.Server.UnitTests. Use it for reviewing files or changes for correctness, security, API design, async usage, and test coverage. It does not review the Angular client.
 tools: ['read', 'search']
 handoffs:
-  - label: Fix review findings     agent: backend     prompt: Fix the findings from the backend review above.     send: false
-  - label: Add missing backend tests     agent: backend-test-writer     prompt: Write the missing server tests identified in the backend review above.     send: false
-  - label: Validate requirements     agent: requirements-validator     prompt: Validate the implemented and reviewed changes against the user story in this conversation.     send: false
+  - label: Fix review findings
+    agent: backend
+    prompt: Fix the findings from the backend review above.
+    send: false
+  - label: Add missing backend tests
+    agent: backend-test-writer
+    prompt: Write the missing server tests identified in the backend review above.
+    send: false
+  - label: Validate requirements
+    agent: requirements-validator
+    prompt: Validate the implemented and reviewed changes against the user story in this conversation.
+    send: false
 ---
 
 # backend-reviewer

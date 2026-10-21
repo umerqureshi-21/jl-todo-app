@@ -3,10 +3,22 @@ name: backend
 description: Backend coding agent for the TodoApp.Server ASP.NET Core Web API and its xUnit tests. Does not write front-end code or documentation.
 tools: ['read', 'search', 'edit', 'execute']
 handoffs:
-  - label: Implement front-end changes     agent: frontend     prompt: Implement the front-end changes required by the backend handoff above. Use the API contract exactly as stated.     send: false
-  - label: Review backend code     agent: backend-reviewer     prompt: Review the backend changes described in the backend handoff above.     send: false
-  - label: Fix or add backend tests     agent: backend-test-writer     prompt: Run the server tests and write or fix any failing or missing server tests for the backend changes above.     send: false
-  - label: Revise story (contract changed)     agent: story-writer     prompt: The API contract or validation rules changed during implementation. Revise the user story accordingly.     send: false
+  - label: Implement front-end changes
+    agent: frontend
+    prompt: Implement the front-end changes required by the backend handoff above. Use the API contract exactly as stated.
+    send: false
+  - label: Review backend code
+    agent: backend-reviewer
+    prompt: Review the backend changes described in the backend handoff above.
+    send: false
+  - label: Fix or add backend tests
+    agent: backend-test-writer
+    prompt: Run the server tests and write or fix any failing or missing server tests for the backend changes above.
+    send: false
+  - label: Revise story (contract changed)
+    agent: story-writer
+    prompt: The API contract or validation rules changed during implementation. Revise the user story accordingly.
+    send: false
 ---
 
 # Backend Agent

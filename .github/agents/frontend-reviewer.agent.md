@@ -3,9 +3,18 @@ name: frontend-reviewer
 description: Read-only reviewer for the Angular 22 client in todoapp.client. Use it for reviewing files or changes for correctness, accessibility, signals/forms usage, API usage, and spec coverage. It does not review the server.
 tools: ['read', 'search']
 handoffs:
-  - label: Fix review findings     agent: frontend     prompt: Fix the findings from the front-end review above.     send: false
-  - label: Add missing frontend specs     agent: frontend-test-writer     prompt: Write the missing client specs identified in the front-end review above.     send: false
-  - label: Validate requirements     agent: requirements-validator     prompt: Validate the implemented and reviewed changes against the user story in this conversation.     send: false
+  - label: Fix review findings
+    agent: frontend
+    prompt: Fix the findings from the front-end review above.
+    send: false
+  - label: Add missing frontend specs
+    agent: frontend-test-writer
+    prompt: Write the missing client specs identified in the front-end review above.
+    send: false
+  - label: Validate requirements
+    agent: requirements-validator
+    prompt: Validate the implemented and reviewed changes against the user story in this conversation.
+    send: false
 ---
 
 # frontend-reviewer

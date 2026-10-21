@@ -3,12 +3,30 @@ name: requirements-validator
 description: Validation agent that checks the implemented code (server and client) and tests against the business requirement or user story and reports which acceptance criteria are met, partially met, or missing. Read-only; writes no code and no documentation files.
 tools: ['read', 'search', 'execute']
 handoffs:
-  - label: Fix backend gaps     agent: backend     prompt: Fix the backend gaps reported in the validation report above.     send: false
-  - label: Fix frontend gaps     agent: frontend     prompt: Fix the frontend gaps reported in the validation report above.     send: false
-  - label: Add missing backend tests     agent: backend-test-writer     prompt: Write the missing or failing server tests identified in the validation report above.     send: false
-  - label: Add missing frontend specs     agent: frontend-test-writer     prompt: Write the missing or failing client specs identified in the validation report above.     send: false
-  - label: Revise the story     agent: story-writer     prompt: Revise the user story to resolve the open questions and unclear criteria in the validation report above.     send: false
-  - label: Re-validate the story     agent: requirements-validator     prompt: Re-run validation of the same user story against the current code and tests, and produce a fresh report.     send: false
+  - label: Fix backend gaps
+    agent: backend
+    prompt: Fix the backend gaps reported in the validation report above.
+    send: false
+  - label: Fix frontend gaps
+    agent: frontend
+    prompt: Fix the frontend gaps reported in the validation report above.
+    send: false
+  - label: Add missing backend tests
+    agent: backend-test-writer
+    prompt: Write the missing or failing server tests identified in the validation report above.
+    send: false
+  - label: Add missing frontend specs
+    agent: frontend-test-writer
+    prompt: Write the missing or failing client specs identified in the validation report above.
+    send: false
+  - label: Revise the story
+    agent: story-writer
+    prompt: Revise the user story to resolve the open questions and unclear criteria in the validation report above.
+    send: false
+  - label: Re-validate the story
+    agent: requirements-validator
+    prompt: Re-run validation of the same user story against the current code and tests, and produce a fresh report.
+    send: false
 ---
 
 # Requirements Validator Agent

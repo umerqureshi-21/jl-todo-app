@@ -3,10 +3,22 @@ name: frontend
 description: Front-end coding agent for the todoapp.client Angular app and its Vitest specs. Does not touch the backend, documentation, or any other part of the solution.
 tools: ['read', 'search', 'edit', 'execute']
 handoffs:
-  - label: Implement backend changes     agent: backend     prompt: Implement the backend changes required by the front-end handoff above. Keep validation rules in sync with the client.     send: false
-  - label: Review frontend code     agent: frontend-reviewer     prompt: Review the front-end changes described in the frontend handoff above.     send: false
-  - label: Fix or add frontend specs     agent: frontend-test-writer     prompt: Run the client specs and write or fix any failing or missing specs for the frontend changes above.     send: false
-  - label: Revise story (contract changed)     agent: story-writer     prompt: The API contract or validation rules changed during implementation. Revise the user story accordingly.     send: false
+  - label: Implement backend changes
+    agent: backend
+    prompt: Implement the backend changes required by the front-end handoff above. Keep validation rules in sync with the client.
+    send: false
+  - label: Review frontend code
+    agent: frontend-reviewer
+    prompt: Review the front-end changes described in the frontend handoff above.
+    send: false
+  - label: Fix or add frontend specs
+    agent: frontend-test-writer
+    prompt: Run the client specs and write or fix any failing or missing specs for the frontend changes above.
+    send: false
+  - label: Revise story (contract changed)
+    agent: story-writer
+    prompt: The API contract or validation rules changed during implementation. Revise the user story accordingly.
+    send: false
 ---
 
 # Frontend Agent

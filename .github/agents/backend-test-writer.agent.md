@@ -3,8 +3,14 @@ name: backend-test-writer
 description: TDD agent that turns a user story or acceptance criteria into failing server tests (xUnit + Moq) before implementation exists. Writes test files in TodoApp.Server.UnitTests only; never writes production code or documentation.
 tools: ['read', 'search', 'edit', 'execute']
 handoffs:
-  - label: Implement backend changes     agent: backend     prompt: Make the failing server tests above pass with the minimal production code. Do not modify the tests unless they are wrong; explain any change.     send: false
-  - label: Write frontend tests (TDD)     agent: frontend-test-writer     prompt: Write failing client specs for the acceptance criteria and frontend tasks in the user story in this conversation.     send: false
+  - label: Implement backend changes
+    agent: backend
+    prompt: Make the failing server tests above pass with the minimal production code. Do not modify the tests unless they are wrong; explain any change.
+    send: false
+  - label: Write frontend tests (TDD)
+    agent: frontend-test-writer
+    prompt: Write failing client specs for the acceptance criteria and frontend tasks in the user story in this conversation.
+    send: false
 ---
 
 # Backend Test Writer Agent (TDD – Red phase)

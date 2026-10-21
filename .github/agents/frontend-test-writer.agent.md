@@ -3,8 +3,14 @@ name: frontend-test-writer
 description: TDD agent that turns a user story or acceptance criteria into failing client specs (Vitest, Angular standalone) before implementation exists. Writes *.spec.ts files in todoapp.client only; never writes production code or documentation.
 tools: ['read', 'search', 'edit', 'execute']
 handoffs:
-  - label: Implement frontend changes     agent: frontend     prompt: Make the failing client specs above pass with the minimal production code. Do not modify the specs unless they are wrong; explain any change.     send: false
-  - label: Write backend tests (TDD)     agent: backend-test-writer     prompt: Write failing server tests for the acceptance criteria and backend tasks in the user story in this conversation.     send: false
+  - label: Implement frontend changes
+    agent: frontend
+    prompt: Make the failing client specs above pass with the minimal production code. Do not modify the specs unless they are wrong; explain any change.
+    send: false
+  - label: Write backend tests (TDD)
+    agent: backend-test-writer
+    prompt: Write failing server tests for the acceptance criteria and backend tasks in the user story in this conversation.
+    send: false
 ---
 
 # Frontend Test Writer Agent (TDD – Red phase)
