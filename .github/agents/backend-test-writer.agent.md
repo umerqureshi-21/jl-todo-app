@@ -5,7 +5,7 @@ tools: ['read', 'search', 'edit', 'execute']
 handoffs:
   - label: Implement backend changes
     agent: backend
-    prompt: Make the failing server tests above pass with the minimal production code. Do not modify the tests unless they are wrong; explain any change.
+    prompt: Make the failing server test above pass with the minimal production code. Do not modify tests; if a test looks wrong, stop and report it.
     send: false
   - label: Write frontend tests (TDD)
     agent: frontend-test-writer

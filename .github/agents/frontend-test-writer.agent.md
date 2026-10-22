@@ -5,7 +5,7 @@ tools: ['read', 'search', 'edit', 'execute']
 handoffs:
   - label: Implement frontend changes
     agent: frontend
-    prompt: Make the failing client specs above pass with the minimal production code. Do not modify the specs unless they are wrong; explain any change.
+    prompt: Make the failing client spec above pass with the minimal production code. Do not modify specs; if a spec looks wrong, stop and report it.
     send: false
   - label: Write backend tests (TDD)
     agent: backend-test-writer

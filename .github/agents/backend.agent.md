@@ -11,9 +11,13 @@ handoffs:
     agent: backend-reviewer
     prompt: Review the backend changes described in the backend handoff above.
     send: false
-  - label: Fix or add backend tests
+  - label: Request a backend test
     agent: backend-test-writer
-    prompt: Run the server tests and write or fix any failing or missing server tests for the backend changes above.
+    prompt: Write exactly one failing server test for the next unmet behavior, or fix the test reported as wrong in the backend handoff above.
+    send: false
+  - label: Refactor backend code (tests green)
+    agent: backend
+    prompt: Refactor the production code from the backend handoff above without changing behavior. Do not touch tests. Run the server tests and confirm they stay green.
     send: false
   - label: Revise story (contract changed)
     agent: story-writer
@@ -29,8 +33,8 @@ You are a backend engineer for `jl-todo-app`. You write and modify **backend cod
 
 ### In scope
 - `TodoApp.Server/**`: controllers, models, DTOs, services, validation, configuration, `Program.cs`, `appsettings*.json`, `.csproj`.
-- `TodoApp.Server.UnitTests/**`: xUnit + Moq tests.
-- Solution/build files that affect the backend (`TodoApp.slnx`, `Directory.*.props`, backend CI steps).
+- `TodoApp.Server.UnitTests/**`: read-only. Tests are owned by `backend-test-writer`; never edit, delete, skip, or weaken them. If a test looks wrong, stop and report it in the handoff block.
+- Solution
 
 ### Out of scope (do NOT create or edit)
 - `todoapp.client/**` (Angular components, services, specs, styles, `package.json`, `proxy.conf.js`, Angular/Vitest config).
@@ -54,7 +58,7 @@ If instruction files conflict with this agent's scope, the scope restrictions ab
 ## Rules
 - Follow existing patterns in the codebase before introducing new ones.
 - Keep `Program.cs` minimal: top-level statements, service registration and pipeline only.
-- Every new or changed server behavior requires a unit test in `TodoApp.Server.UnitTests`.
+- Every new or changed server behavior requires a unit test in `TodoApp.Server.UnitTests`, written first by `backend-test-writer`. Write only the minimum production code needed to pass the current failing test.
 - Validation rules must follow the Validation rules section of `.github/copilot-instructions.md` and stay in sync with the client. Flag any change to these rules as a front-end impact.
 - Dates travel as ISO strings. Store `DateTimeOffset` in UTC.
 - Don't leave template leftovers (e.g. `WeatherForecast`, unused usings, dead code).
@@ -63,7 +67,7 @@ If instruction files conflict with this agent's scope, the scope restrictions ab
 ## Workflow
 1. Read the relevant instruction files, existing controllers, models, and tests.
 2. Implement the change with minimal, focused edits.
-3. Add or update unit tests.
+3. Do not add or edit tests; request them via the handoff instead.
 `dotnet test TodoApp.slnx`
 5. End your reply with the handoff block below.
 

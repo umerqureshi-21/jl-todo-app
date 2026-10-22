@@ -5,19 +5,19 @@ tools: ['read', 'search']
 handoffs:
   - label: Write backend tests (TDD)
     agent: backend-test-writer
-    prompt: Write failing server tests for the acceptance criteria and backend tasks in the user story above.
+    prompt: Pick the first unmet backend acceptance criterion in the user story above and write exactly one failing server test for its smallest behavior. Repeat one test at a time.
     send: false
   - label: Write frontend tests (TDD)
     agent: frontend-test-writer
-    prompt: Write failing client specs for the acceptance criteria and frontend tasks in the user story above.
+    prompt: Pick the first unmet frontend acceptance criterion in the user story above and write exactly one failing client spec for its smallest behavior. Repeat one spec at a time.
     send: false
   - label: Implement backend changes
     agent: backend
-    prompt: Implement the backend tasks from the user story above. Keep validation rules in sync with the client.
+    prompt: Make the currently failing server test pass with the minimum production code, guided by the backend tasks in the user story above. Keep validation rules in sync with the client. Do not edit tests.
     send: false
   - label: Implement frontend changes
     agent: frontend
-    prompt: Implement the frontend tasks from the user story above. Keep validation rules in sync with the server.
+    prompt: Make the currently failing client spec pass with the minimum production code, guided by the frontend tasks in the user story above. Keep validation rules in sync with the server. Do not edit specs.
     send: false
 ---
 

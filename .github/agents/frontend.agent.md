@@ -11,9 +11,13 @@ handoffs:
     agent: frontend-reviewer
     prompt: Review the front-end changes described in the frontend handoff above.
     send: false
-  - label: Fix or add frontend specs
+  - label: Request a frontend spec
     agent: frontend-test-writer
-    prompt: Run the client specs and write or fix any failing or missing specs for the frontend changes above.
+    prompt: Write exactly one failing client spec for the next unmet behavior, or fix the spec reported as wrong in the frontend handoff above.
+    send: false
+  - label: Refactor frontend code (specs green)
+    agent: frontend
+    prompt: Refactor the production code from the frontend handoff above without changing behavior. Do not touch specs. Run the client specs and build and confirm they stay green.
     send: false
   - label: Revise story (contract changed)
     agent: story-writer
@@ -51,7 +55,7 @@ If instruction files conflict with this agent's scope, the scope restrictions ab
 
 ## Rules
 - Follow existing patterns in the codebase before introducing new ones.
-- Every new component or service needs a spec next to it. Changed behavior requires updated specs.
+- Every new component or service needs a spec next to it, written first by `frontend-test-writer`. Specs (`*.spec.ts`) are read-only for you: never edit, delete, skip, or weaken them; if one looks wrong, stop and report it in the handoff block. Write only the minimum production code needed to pass the current failing spec.
 - Validation for every field must match the server's validation rules (required, length, range, format, etc.). Derive the rules from the server models/DTOs. If the client and server differ, report it as a backend impact instead of guessing.
 - Dates travel as ISO strings.
 - Do not hardcode URLs in components; keep them in services.
@@ -61,7 +65,7 @@ If instruction files conflict with this agent's scope, the scope restrictions ab
 ## Workflow
 1. Read the instruction files, then the relevant existing components, services, models, and specs.
 2. Implement the change with minimal, focused edits.
-3. Add or update specs.
+3. Do not add or edit specs; request them via the handoff instead.
 4. From `todoapp.client`, run `npm test` (non-watch) and `npm run build`, and fix failures.
 5. End your reply with the handoff block below.
 
