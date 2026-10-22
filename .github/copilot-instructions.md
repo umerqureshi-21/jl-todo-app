@@ -10,6 +10,7 @@ The server hosts the SPA (`UseDefaultFiles`, `MapStaticAssets`, `MapFallbackToFi
 
 ## General Rules
 - Follow existing patterns before introducing new ones.
+- Use the skills in `.github/skills/` where they apply to the task.
 - Keep `Program.cs` minimal (top-level statements, service registration + pipeline only).
 - Every new server behavior needs a unit test. Every new client component or service needs a spec.
 - Server and client validation rules must match; refer to validation rules defined in the story/existing code instead of specific fields or boundary values.
