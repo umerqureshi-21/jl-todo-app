@@ -60,14 +60,39 @@ namespace TodoApp.Server.UnitTests.Controllers
                 new Todo { Id = Guid.NewGuid(), Title = "Todo 1", Description = "Description 1", DueDate = DateTimeOffset.Now.AddDays(1) },
                 new Todo { Id = Guid.NewGuid(), Title = "Todo 2", Description = "Description 2", DueDate = DateTimeOffset.Now.AddDays(2) }
             };
-            _todoRepository.Setup(x => x.GetAllAsync()).ReturnsAsync(todos);
+            _todoRepository.Setup(x => x.GetAllAsync(null)).ReturnsAsync(todos);
 
             // Act
             var result = await _todoController.GetTodosAsync();
 
             // Assert
             Assert.NotNull(result);
-            Assert.IsType<OkObjectResult>(result.Result);
+            var ok = Assert.IsType<OkObjectResult>(result.Result);
+            Assert.Same(todos, ok.Value);
+            _todoRepository.Verify(x => x.GetAllAsync(null), Times.Once);
+        }
+
+        [Fact]
+        public async Task GetTodos_AC7_WithNonUtcDueBefore_PassesUtcInstantToRepository()
+        {
+            // Arrange
+            var dueBefore = new DateTimeOffset(2026, 10, 22, 17, 0, 0, TimeSpan.FromHours(11));
+            var expectedUtc = new DateTimeOffset(2026, 10, 22, 6, 0, 0, TimeSpan.Zero);
+            var todos = new List<Todo>
+            {
+                new Todo { Id = Guid.NewGuid(), Title = "Todo 1", Description = "Description 1", DueDate = expectedUtc.AddHours(-1) }
+            };
+            _todoRepository
+                .Setup(x => x.GetAllAsync(It.Is<DateTimeOffset?>(d => d.HasValue && d.Value == expectedUtc && d.Value.Offset == TimeSpan.Zero)))
+                .ReturnsAsync(todos);
+
+            // Act
+            var result = await _todoController.GetTodosAsync(dueBefore);
+
+            // Assert
+            var ok = Assert.IsType<OkObjectResult>(result.Result);
+            Assert.Same(todos, ok.Value);
+            _todoRepository.Verify(x => x.GetAllAsync(It.Is<DateTimeOffset?>(d => d.HasValue && d.Value == expectedUtc && d.Value.Offset == TimeSpan.Zero)), Times.Once);
         }
 
         [Fact]

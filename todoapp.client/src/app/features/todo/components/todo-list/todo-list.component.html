@@ -1,10 +1,14 @@
 <div class="container mt-4">
     <h1 class="mb-3">Todos</h1>
     <div class="mb-3 right text-end">
+        <button type="button" class="btn btn-warning me-2" data-testid="due-count" [attr.aria-pressed]="showDueOnly()" (click)="toggleDueOnly()" [disabled]="dueTodos().length === 0">Due: {{ dueTodos().length }}</button>
         <a class="btn btn-primary" [routerLink]="['/add-todo']"> Add New Todo</a>
     </div>
+    @if (dueError(); as message) {
+    <div class="alert alert-danger" role="alert" data-testid="due-error">{{ message }}</div>
+    }
 <ul class="list-unstyled">
-    @for(todo of todos() ; track todo.id )
+    @for(todo of visibleTodos() ; track todo.id )
     {   
     <li class="mb-3">
         <jl-todo-card [todo]="todo" (deleted)="onDeleteTodo($event)"></jl-todo-card>

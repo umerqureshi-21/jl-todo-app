@@ -10,9 +10,9 @@ namespace TodoApp.Server.Controllers
     public class TodosController(ITodoRepository repository) : ControllerBase
     {
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Todo>>> GetTodosAsync()
+        public async Task<ActionResult<IEnumerable<Todo        >>> GetTodosAsync([FromQuery] DateTimeOffset? dueBefore = null)
         {
-            var todos = await repository.GetAllAsync();
+                    var todos = await repository.GetAllAsync(dueBefore?.ToUniversalTime());
             return Ok(todos);
         }
 

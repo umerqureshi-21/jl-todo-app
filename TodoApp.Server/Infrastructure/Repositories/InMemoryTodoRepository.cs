@@ -23,9 +23,12 @@ namespace TodoApp.Server.Infrastructure.Repositories
             return Task.FromResult(false);
         }
 
-        public Task<IEnumerable<Todo>> GetAllAsync()
+        public Task<IEnumerable<Todo>> GetAllAsync(DateTimeOffset? dueBefore = null)
         {
-            return Task.FromResult<IEnumerable<Todo>>(_todos);
+            var snapshot = dueBefore is null
+                ? _todos.ToList()
+                : _todos.Where(t => t.DueDate <= dueBefore).ToList();
+            return Task.FromResult<IEnumerable<Todo>>(snapshot);
         }
 
         public Task<Todo?> GetByIdAsync(Guid id)

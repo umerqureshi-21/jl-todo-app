@@ -1,7 +1,7 @@
 import { Service, inject } from '@angular/core';
 import { ITodo } from '../models/todo.model';
 import { catchError, Observable, throwError } from 'rxjs';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 
 @Service()
 export class TodoService {
@@ -9,8 +9,9 @@ export class TodoService {
     private readonly baseUrl = 'api';
     private readonly http= inject(HttpClient);
     
-    getTodos() : Observable<ITodo[]> {
-         return this.http.get<ITodo[]>(this.baseUrl + '/todos').pipe(
+    getTodos(dueBefore?: string) : Observable<ITodo[]> {
+         const params = dueBefore ? new HttpParams().set('dueBefore', dueBefore) : undefined;
+         return this.http.get<ITodo[]>(this.baseUrl + '/todos', { params }).pipe(
             catchError(this.handleError)
         );
     }
