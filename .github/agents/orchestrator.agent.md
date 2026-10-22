@@ -26,7 +26,11 @@ You run the full development workflow for `jl-todo-app` end to end using strict 
 
 ## Workflow
 
-Keep the original request verbatim for final validation. Keep the resulting story (
+Keep the resulting story for every later phase.
+
+1. **Story**: delegate to `story-writer` with the original request verbatim and the rules from `.github/copilot-instructions.md` and `.github/instructions/`.
+   - Expect a story with numbered acceptance criteria, split into backend and frontend tasks, and with validation rules stated once.
+   - If the story is unclear or does not match the request, send it back to `story-writer` (at most 3 attempts).
 
 2. **Backend cycles** (skip if no backend tasks). Take the acceptance criteria in order, simplest first, and for each smallest behavior:
    1. **Red**: delegate to `backend-test-writer` to write exactly one test, named with its criterion number. Run `dotnet test TodoApp.slnx`.
